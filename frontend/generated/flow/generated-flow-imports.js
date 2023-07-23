@@ -9,11 +9,11 @@ import '@vaadin/vaadin-lumo-styles/vaadin-iconset.js';
 
 const loadOnDemand = (key) => {
   const pending = [];
-  if (key === '8e3b0b5b9f0e10727ec4344094c74610f594e292d6069e29a0cb37c91661406a') {
-    pending.push(import('./chunks/chunk-8e3b0b5b9f0e10727ec4344094c74610f594e292d6069e29a0cb37c91661406a.js'));
-  }
   if (key === '439283be21228e7b20723d0ab3ec936d1555501a3fe076688387b2098cc51672') {
     pending.push(import('./chunks/chunk-439283be21228e7b20723d0ab3ec936d1555501a3fe076688387b2098cc51672.js'));
+  }
+  if (key === '8e3b0b5b9f0e10727ec4344094c74610f594e292d6069e29a0cb37c91661406a') {
+    pending.push(import('./chunks/chunk-8e3b0b5b9f0e10727ec4344094c74610f594e292d6069e29a0cb37c91661406a.js'));
   }
   return Promise.all(pending);
 }

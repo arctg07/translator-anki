@@ -104,7 +104,6 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("TRANSLATE", LineAwesomeIcon.GLOBE_SOLID.create(), TRANSLATEView.class), //
 
                 new MenuItemInfo("UPLOAD", LineAwesomeIcon.GLOBE_SOLID.create(), UPLOADView.class), //
-
         };
     }
 

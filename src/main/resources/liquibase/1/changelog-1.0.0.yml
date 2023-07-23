@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-sentence-table
+      author: Iurii Ivanov
+      changes:
+        - createTable:
+            tableName: words
+#            schemaName: DICTIONARY
+            remarks: Table to store english and russian words
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: english
+                  type: VARCHAR(300)
+              - column:
+                  name: russian
+                  type: VARCHAR(300)
+              - column:
+                  name: german
+                  type: VARCHAR(300)
+                  defaultValue: ""
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  defaultValue: now()
+
+  - changeSet:
+      id: insert-first-value
+      author: Iurii Ivanov
+      changes:
+        - insert:
+            tableName: words
+            columns:
+              - column:
+                  name: english
+                  value: example
+              - column:
+                  name: russian
+                  value: пример

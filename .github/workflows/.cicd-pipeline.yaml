@@ -19,7 +19,7 @@ jobs:
   next-check:
     if: ${{github.ref_name == 'dev'}}
     runs-on: ubuntu-latest
-    needs: [check-bats-version]
+    needs: [example-check]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

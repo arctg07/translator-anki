@@ -2,7 +2,7 @@ name: "Build and Deploy translator application"
 run-name: ${{ github.actor }} is learning github actions
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev, prod ]
   pull_request:
     branches: [ prod ]
 

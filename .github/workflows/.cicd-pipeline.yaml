@@ -7,7 +7,7 @@ on:
     branches: [ prod ]
 
 jobs:
-  example check:
+  example-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

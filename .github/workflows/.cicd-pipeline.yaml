@@ -4,33 +4,10 @@ run-name: ${{ github.actor }} is learning github actions
 on:
   push:
     branches: [ dev, prod ]
-  pull_request:
-    branches: [ prod ]
+#  pull_request:
+#    branches: [ prod ]
 
 jobs:
-  validate-code:
-    runs-on: [ self-hosted, linux, dev ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-  build:
-    if: ${{github.ref_name == 'dev'}}
-    needs: [validate-code]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Build with Maven
-        run: mvn clean package
-
-      - name: Build and Push to Docker Image
-        run: |
-          docker login
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -53,6 +30,30 @@ jobs:
           docker build -t us-central1-docker.pkg.dev/prod-393309/$GOOGLE_PROJECT/translator:latest .
           docker push us-central1-docker.pkg.dev/prod-393309/$GOOGLE_PROJECT/translator:latest
 
+
+#  validate-code:
+#    runs-on: [ self-hosted, linux, dev ]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#  build:
+#    if: ${{github.ref_name == 'dev'}}
+#    needs: [validate-code]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#      - name: Build with Maven
+#        run: mvn clean package
+#
+#      - name: Build and Push to Docker Image
+#        run: |
+#          docker login
 
 
 #  example-check:

@@ -7,7 +7,7 @@ on:
     branches: [ prod ]
 
 jobs:
-  check-bats-version:
+  example check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

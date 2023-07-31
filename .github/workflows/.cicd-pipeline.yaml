@@ -13,10 +13,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-
       - name: checkout before deploy
         uses: actions/checkout@v3
-
       - name: install gcloud cli
         uses: google-github-actions/setup-gcloud@v1
         with:
@@ -29,8 +27,11 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/prod-393309/$GOOGLE_PROJECT/translator:latest .
-          docker push us-central1-docker.pkg.dev/prod-393309/$GOOGLE_PROJECT/translator:latest
+          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/translator:latest .
+          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/translator:latest
+
+#          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest .
+#          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest
 
 
 #  validate-code:

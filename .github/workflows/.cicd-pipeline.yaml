@@ -13,10 +13,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-#      - name: checkout before deploy
-#        uses: actions/checkout@v3
+      - name: checkout before deploy
+        uses: actions/checkout@v3
       - name: install gcloud cli
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
           service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
@@ -32,51 +32,3 @@ jobs:
 
 #          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest .
 #          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest
-
-
-#  validate-code:
-#    runs-on: [ self-hosted, linux, dev ]
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#  build:
-#    if: ${{github.ref_name == 'dev'}}
-#    needs: [validate-code]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v3
-#        with:
-#          java-version: '17'
-#          distribution: 'temurin'
-#      - name: Build with Maven
-#        run: mvn clean package
-#
-#      - name: Build and Push to Docker Image
-#        run: |
-#          docker login
-
-
-#  example-check:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: '14'
-#      - run: npm install -g bats
-#      - run: bats -v
-#  next-check:
-#    if: ${{github.ref_name == 'dev'}}
-#    runs-on: ubuntu-latest
-#    needs: [example-check]
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: '14'
-#      - run: npm install -g bats
-#      - run: bats -v
-

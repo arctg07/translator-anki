@@ -23,7 +23,7 @@ COPY --from=builder /app/target/translator-anki-1.jar .
 COPY /frontend .
 
 # Expose the port on which your Spring Boot app listens
-EXPOSE 80
+EXPOSE 8080
 
 # Specify the command to run your application
 CMD ["java", "-jar", "translator-anki-1.jar"]

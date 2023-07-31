@@ -2,30 +2,30 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: translator
+  name: translator-anki
 spec:
   type: LoadBalancer
   selector:
-    app: translator
+    app: translator-anki
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: translator
+  name: translator-anki
   labels:
-    app: translator
+    app: translator-anki
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: translator
+      app: translator-anki
   template:
     metadata:
       labels:
-        app: translator
+        app: translator-anki
     spec:
       containers:
         - name: translator

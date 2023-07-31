@@ -27,8 +27,8 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/translator:latest .
-          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/translator:latest
+          docker build -t us-central1-docker.pkg.dev/prod-393309/translator/translator:latest .
+          docker push us-central1-docker.pkg.dev/prod-393309/translator/translator:latest
 
 #          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest .
 #          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/prod-393309/translator:latest

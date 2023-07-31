@@ -15,6 +15,7 @@ spring:
     password: postgres1992
   liquibase:
     change-log: classpath:liquibase/db.changelog-master.yml
+    enabled: false
 
 vaadin:
   launch-browser: true

@@ -6,11 +6,29 @@ on:
     branches: [ dev, prod ]
 
 jobs:
-  deploy:
+  setup-secrets:
     runs-on: ubuntu-latest
     steps:
       - name: checkout before deploy
         uses: actions/checkout@v3
+
+      - name: Setup secrets
+        run: |
+          echo "spring:" >> /src/main/resources/application.yaml
+          echo "  mustache:" >> /src/main/resources/application.yaml
+          echo "    check-template-location: false" >> /src/main/resources/application.yaml
+          echo "  datasource:" >> /src/main/resources/application.yaml
+          echo "    url: \${{ secrets.DICTIONARY_URL }}" >> /src/main/resources/application.yaml
+          echo "    username: \${{ secrets.DB_USER }}" >> /src/main/resources/application.yaml
+          echo "    password: \${{ secrets.DB_USER_PASS }}" >> /src/main/resources/application.yaml
+
+  deploy:
+    needs: [ setup-secrets ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout before deploy
+        uses: actions/checkout@v3
+
       - name: install gcloud cli
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -18,13 +36,14 @@ jobs:
           service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           install_components: 'gke-gcloud-auth-plugin'
           export_default_credentials: true
+
       - name: build and push the docker image
         env:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/prod-393309/translator/anki:latest .
-          docker push us-central1-docker.pkg.dev/prod-393309/translator/anki:latest
+          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:latest .
+          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:latest
 
       - name: deploy to gke
         env:

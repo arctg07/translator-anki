@@ -10,9 +10,9 @@ spring:
   mustache:
     check-template-location: false
   datasource:
-    url: ${SPRING_DATASOURCE_JDBC_URL}
-    username: postgres
-    password: postgres
+    url: ${DICTIONARY_URL}
+    username: ${DB_USER}
+    password: ${DB_USER_PASS}
 #  jpa:
 #    defer-datasource-initialization: true
   liquibase:

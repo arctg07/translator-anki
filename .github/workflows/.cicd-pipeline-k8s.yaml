@@ -1,5 +1,5 @@
-name: "Build and Deploy translator application"
-run-name: ${{ github.actor }} is learning github actions
+name: "Deploy to k8s"
+run-name: ${{ github.actor }} try to deploy ti k8s-gcloud
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
           service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          install_components: 'gke-gcloud-auth-plugin'
           export_default_credentials: true
       - name: build and push the docker image
         env:
@@ -24,3 +25,11 @@ jobs:
           gcloud auth configure-docker us-central1-docker.pkg.dev
           docker build -t us-central1-docker.pkg.dev/prod-393309/translator/anki:latest .
           docker push us-central1-docker.pkg.dev/prod-393309/translator/anki:latest
+
+      - name: deploy to gke
+        env:
+          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        run: |
+          gcloud container clusters get-credentials translator-cluster --region us-central1
+          sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" k8s-resources.yaml
+          kubectl apply -f k8s-resources.yaml

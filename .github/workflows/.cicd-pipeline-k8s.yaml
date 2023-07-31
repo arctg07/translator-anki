@@ -14,13 +14,13 @@ jobs:
 
       - name: Setup secrets
         run: |
-          echo "spring:" >> /src/main/resources/application.yaml
-          echo "  mustache:" >> /src/main/resources/application.yaml
-          echo "    check-template-location: false" >> /src/main/resources/application.yaml
-          echo "  datasource:" >> /src/main/resources/application.yaml
-          echo "    url: \${{ secrets.DICTIONARY_URL }}" >> /src/main/resources/application.yaml
-          echo "    username: \${{ secrets.DB_USER }}" >> /src/main/resources/application.yaml
-          echo "    password: \${{ secrets.DB_USER_PASS }}" >> /src/main/resources/application.yaml
+          echo "spring:" >> src/main/resources/application.yml
+          echo "  mustache:" >> src/main/resources/application.yml
+          echo "    check-template-location: false" >> src/main/resources/application.yml
+          echo "  datasource:" >> src/main/resources/application.yml
+          echo "    url: \${{ secrets.DICTIONARY_URL }}" >> src/main/resources/application.yml
+          echo "    username: \${{ secrets.DB_USER }}" >> src/main/resources/application.yml
+          echo "    password: \${{ secrets.DB_USER_PASS }}" >> src/main/resources/application.yml
 
   deploy:
     needs: [ setup-secrets ]

@@ -15,7 +15,10 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         run: |
-          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" /home/runner/work/translator-anki/translator-anki/README.md
+          cd src/main/resources/
+          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
+          sed -i "s|DB_USER|$DB_USER|g" application.yml
+          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
 
 #  deploy:
 #    needs: [ setup-secrets ]
@@ -49,26 +52,3 @@ jobs:
 #          gcloud container clusters get-credentials translator-cluster --region us-central1
 #          sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" k8s-resources.yaml
 #          kubectl apply -f k8s-resources.yaml
-          
-
-#            setup-secrets:
-#              runs-on: ubuntu-latest
-#              steps:
-#                - name: checkout before deploy
-#                  uses: actions/checkout@v3
-#
-#                - name: Setup secrets
-#                  env:
-#                    DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
-#                    DB_USER: ${{ secrets.DB_USER }}
-#                    DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-#                  run: |
-#                    cd src/main/resources/
-#                    sed -i "s|\\\${DICTIONARY_URL}|$DICTIONARY_URL|g" application.yml
-#                    sed -i "s|\\\${DB_USER}|$DB_USER|g" application.yml
-#                    sed -i "s|\\\${DB_USER_PASS}|$DB_USER_PASS|g" application.yml
-#
-#                    cd src/main/resources
-#          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
-#          sed -i "s|DB_USER|$DB_USER|g" application.yml
-#          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml

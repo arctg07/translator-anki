@@ -21,6 +21,6 @@ spring:
     enabled: false
 
 vaadin:
-  launch-browser: true
+  launch-browser: false
   whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.example.application
   productionMode: true

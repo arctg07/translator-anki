@@ -32,7 +32,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         run: |
-          cd src/main/resources/
+          cd src/main/resources
           sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
           sed -i "s|DB_USER/DB_USER|g" application.yml
           sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml

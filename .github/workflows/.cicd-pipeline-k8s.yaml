@@ -18,7 +18,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         with:
-          valueFile: 'application.yml'
+          valueFile: 'src/main/resources/application.yml'
           propertyPath: 'spring.datasource.url'
           value: $DICTIONARY_URL
           commitChange: false

@@ -16,6 +16,7 @@ jobs:
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         run: |
           echo "This is the content of the file" > file.txt
+          cp file.txt $GITHUB_WORKSPACE/file.txt
 #          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" README.md
 
 #  deploy:

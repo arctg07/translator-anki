@@ -10,9 +10,6 @@ spring:
   mustache:
     check-template-location: false
   datasource:
-#    url: jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary
-#    username: postgres
-#    password: postgres1992
     url: DICTIONARY_URL
     username: DB_USER
     password: DB_USER_PASS

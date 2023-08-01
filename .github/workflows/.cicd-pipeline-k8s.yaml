@@ -20,11 +20,14 @@ jobs:
         with:
           valueFile: 'src/main/resources/application.yml'
           propertyPath: 'spring.datasource.url'
-          value: $DICTIONARY_URL
           commitChange: false
-          updateFile: true
           branch: dev
-          masterBranchName: dev
+          changes: |
+            {
+              "spring.datasource.url": $DICTIONARY_URL
+              "spring.datasource.username": $DB_USER
+              "spring.datasource.password": $DB_USER_PASS
+            }
 
 #      - name: test setup secrets
 #        env:

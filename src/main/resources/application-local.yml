@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 logging:
   level:
@@ -8,6 +8,10 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5431/anki?currentSchema=DICTIONARY
+    url: jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary
     username: postgres
-    password: postgres
+    password: postgres1992
+
+#vaadin:
+#  launch-browser: true
+#  whitelisted-packages: com.vaadin, org.vaadin, dev.hilla, com.example.application

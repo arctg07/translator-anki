@@ -9,16 +9,30 @@ jobs:
   setup-secrets:
     runs-on: ubuntu-latest
     steps:
-      - name: test setup secrets
+      - uses: actions/checkout@v3
+
+      - name: Update values.yaml
+        uses: fjogeleit/yaml-update-action@main
         env:
           DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-        run: |
-          cd src/main/resources/
-          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
-          sed -i "s|DB_USER|$DB_USER|g" application.yml
-          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
+        with:
+          valueFile: 'application.yml'
+          propertyPath: 'spring.datasource.url'
+          value: $DICTIONARY_URL
+          commitChange: false
+
+#      - name: test setup secrets
+#        env:
+#          DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
+#          DB_USER: ${{ secrets.DB_USER }}
+#          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+#        run: |
+#          cd src/main/resources/
+#          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
+#          sed -i "s|DB_USER|$DB_USER|g" application.yml
+#          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
 
 #  deploy:
 #    needs: [ setup-secrets ]

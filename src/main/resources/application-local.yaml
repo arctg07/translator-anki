@@ -8,9 +8,12 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary
+#    url: jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary
+    url: DICTIONARY_URL
     username: postgres
     password: postgres1992
 
 vaadin:
   launch-browser: true
+
+#DICTIONARY_URL

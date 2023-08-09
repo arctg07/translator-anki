@@ -1,4 +1,4 @@
-name: "Build and Deploy translator application"
+name: "Build to Google Artifact Registry"
 run-name: ${{ github.actor }} is learning github actions
 
 on:

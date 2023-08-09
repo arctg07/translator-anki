@@ -8,8 +8,8 @@ spec:
   selector:
     app: translator-app
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 8082
+      targetPort: 8082
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,4 +29,4 @@ spec:
     spec:
       containers:
         - name: translator
-          image: us-central1-docker.pkg.dev/GOOGLE_PROJECT/translator/anki:1.0.3
+          image: us-central1-docker.pkg.dev/GOOGLE_PROJECT/translator/anki:latest

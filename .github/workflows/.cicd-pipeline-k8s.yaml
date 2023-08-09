@@ -17,9 +17,11 @@ jobs:
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         working-directory: ./src/main/resources
         run: |
-          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
-          sed -i "s|DB_USER|$DB_USER|g" application.yml
-          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
+          echo $SHELL
+          echo $DICTIONARY_URL
+          sed -i.bak -e "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
+          sed -i.bak -e "s|DB_USER|$DB_USER|g" application.yml
+          sed -i.bak -e "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
 
   deploy:
     needs: [ setup-secrets ]

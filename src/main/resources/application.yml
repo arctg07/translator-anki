@@ -10,9 +10,12 @@ spring:
   mustache:
     check-template-location: false
   datasource:
-    url: DICTIONARY_URL
-    username: DB_USER
-    password: DB_USER_PASS
+#    url: ${DICTIONARY_URL}
+#    username: ${DB_USER}
+#    password: ${DB_USER_PASS}
+    url: jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary
+    username: postgres
+    password: postgres1992
   liquibase:
     change-log: classpath:liquibase/db.changelog-master.yml
     enabled: false

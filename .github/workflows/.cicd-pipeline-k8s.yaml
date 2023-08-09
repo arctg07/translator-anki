@@ -53,20 +53,3 @@ jobs:
           gcloud container clusters get-credentials translator-cluster --region us-central1
           sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" k8s-resources.yaml
           kubectl apply -f k8s-resources.yaml
-
-        #      - name: Update values.yaml
-        #        uses: fjogeleit/yaml-update-action@main
-        #        env:
-        #          DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
-        #          DB_USER: ${{ secrets.DB_USER }}
-        #          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-        #        with:
-        #          valueFile: 'src/main/resources/application.yml'
-        #          commitChange: false
-        #          branch: dev
-        #          changes: |
-        #            {
-        #              "spring.datasource.url": $DICTIONARY_URL
-        #              "spring.datasource.username": $DB_USER
-        #              "spring.datasource.password": $DB_USER_PASS
-      #            }

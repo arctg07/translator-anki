@@ -17,7 +17,7 @@ jobs:
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
 #        working-directory: ./src/main/resources
         run: |
-          sed -i "s/DICTIONARY_URL/$DICTIONARY_URL/g" ./src/main/resources/application.yml
+          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" ./src/main/resources/application.yml
           grep "url" ./src/main/resources/application.yml
           sed -i "s/DB_USER|$DB_USER/g" ./src/main/resources/application.yml
           grep "username" ./src/main/resources/application.yml

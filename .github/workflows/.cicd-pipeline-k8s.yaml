@@ -1,5 +1,5 @@
 name: "Deploy to k8s"
-run-name: ${{ github.actor }} try to deploy ti k8s-gcloud
+run-name: ${{ github.actor }} try to deploy to k8s-gcloud ${{ github.sha }}
 
 on:
   push:

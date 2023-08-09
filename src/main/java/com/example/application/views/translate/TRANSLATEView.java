@@ -15,7 +15,7 @@ import com.vaadin.flow.router.RouteAlias;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("TRANSLATE")
-@Route(value = "hello", layout = MainLayout.class)
+@Route(value = "translator", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 public class TRANSLATEView extends HorizontalLayout {
 

@@ -29,4 +29,4 @@ spec:
     spec:
       containers:
         - name: translator
-          image: us-central1-docker.pkg.dev/GOOGLE_PROJECT/translator/anki:latest
+          image: us-central1-docker.pkg.dev/GOOGLE_PROJECT/translator/anki:version1

@@ -6,22 +6,20 @@ on:
     branches: [ dev, prod ]
 
 jobs:
-#  setup-secrets:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: test setup secrets
-#        env:
-#          DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
-#          DB_USER: ${{ secrets.DB_USER }}
-#          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-##        working-directory: ./src/main/resources
-#        run: |
-#          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" ./src/main/resources/application.yml
-#          grep "url" ./src/main/resources/application.yml
-#          sed -i "s|DB_USER|$DB_USER|g" ./src/main/resources/application.yml
-#          grep "username" ./src/main/resources/application.yml
-#          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" ./src/main/resources/application.yml
+  setup-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: test setup secrets
+        env:
+          DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+        working-directory: ./src/main/resources
+        run: |
+          sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
+          sed -i "s|DB_USER|$DB_USER|g" application.yml
+          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
 
   deploy:
 #    needs: [ setup-secrets ]
@@ -45,8 +43,8 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:latest .
-          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:latest
+          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:version1 .
+          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:version1
 
       - name: deploy to gke
         env:
@@ -55,3 +53,4 @@ jobs:
           gcloud container clusters get-credentials translator-cluster --region us-central1
           sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" k8s-resources.yaml
           kubectl apply -f k8s-resources.yaml
+          kubectl rollout restart deployment/translator-app

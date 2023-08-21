@@ -17,12 +17,13 @@ jobs:
           DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+          KAFKA_SERVER: ${{ secrets.KAFKA_SERVER }}
         working-directory: ./src/main/resources
         run: |
           sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
           sed -i "s|DB_USER|$DB_USER|g" application.yml
           sed -i "s|DB_USER_PASS|postgres1992|g" application.yml
-          sed -i "s|KAFKA_SERVER|KAFKA_SERVER|g" application.yml
+          sed -i "s|KAFKA_SERVER|$KAFKA_SERVER|g" application.yml
           grep "url" application.yml
 
   #Please switch to using google-github-actions/auth which supports both Workload Identity Federation

@@ -21,7 +21,7 @@ jobs:
         run: |
           sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
           sed -i "s|DB_USER|$DB_USER|g" application.yml
-          sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
+          sed -i "s|DB_USER_PASS|postgres1992|g" application.yml
           sed -i "s|KAFKA_SERVER|KAFKA_SERVER|g" application.yml
           grep "url" application.yml
 

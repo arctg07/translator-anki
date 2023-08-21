@@ -10,12 +10,27 @@ spring:
   mustache:
     check-template-location: false
   datasource:
-    url: ${DICTIONARY_URL:jdbc:postgresql://34.30.8.168:5432/anki?currentSchema=dictionary}
-    username: ${DB_USER:postgres}
-    password: ${DB_USER_PASS:postgres1992}
+    url: DICTIONARY_URL
+    username: DB_USER
+    password: DB_USER_PASS
   liquibase:
     change-log: classpath:liquibase/db.changelog-master.yml
     enabled: false
+  kafka:
+    bootstrap-servers: KAFKA_SERVER
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        acks: 1
+        spring:
+          json:
+            add:
+              type:
+                headers: false
+
+topic:
+  send-analytics: topic1
 
 vaadin:
   launch-browser: false

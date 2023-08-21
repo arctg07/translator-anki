@@ -6,10 +6,12 @@ on:
     branches: [ dev, prod ]
 
 jobs:
-  setup-secrets:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout before deploy
+        uses: actions/checkout@v3
+
       - name: test setup secrets
         env:
           DICTIONARY_URL: ${{ secrets.DICTIONARY_URL }}
@@ -18,15 +20,10 @@ jobs:
         working-directory: ./src/main/resources
         run: |
           sed -i "s|DICTIONARY_URL|$DICTIONARY_URL|g" application.yml
+          grep "url" ./src/main/resources/application.yml
           sed -i "s|DB_USER|$DB_USER|g" application.yml
           sed -i "s|DB_USER_PASS|$DB_USER_PASS|g" application.yml
-
-  deploy:
-#    needs: [ setup-secrets ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout before deploy
-        uses: actions/checkout@v3
+          sed -i "s|KAFKA_SERVER|KAFKA_SERVER|g" application.yml
 
   #Please switch to using google-github-actions/auth which supports both Workload Identity Federation
   #and Service Account Key JSON authentication.

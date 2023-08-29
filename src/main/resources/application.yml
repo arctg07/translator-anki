@@ -30,7 +30,7 @@ spring:
                 headers: false
 
 topic:
-  send-analytics: topic1
+  send-analytics: topic-statistics
 
 vaadin:
   launch-browser: false

@@ -20,7 +20,8 @@ public abstract class SentenceHandler implements WordHandler {
         StatisticsMessage statisticsMessage = new StatisticsMessage(
                 lang,
                 count,
-                sentence
+                sentence.eng(),
+                sentence.rus()
         );
 
         try {

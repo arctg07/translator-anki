@@ -1,5 +1,5 @@
 # TRANSLATOR-ANKI
-Simple app with vaadin-fronend
+Simple app with vaadin-frontend
 
 
 DICTIONARY_URL

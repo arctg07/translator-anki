@@ -1,6 +1,5 @@
 package com.example.application.model;
 
-
 /**
  * @author Iurii Ivanov
  */

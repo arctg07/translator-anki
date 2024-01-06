@@ -1,5 +1,5 @@
-name: "Build and Push to Google Artifact Registry"
-run-name: ${{ github.actor }} is learning github actions
+name: "Deploy to k8s"
+run-name: ${{ github.actor }} try to deploy to k8s-gcloud ${{ github.sha }}
 
 on:
   push:
@@ -25,16 +25,29 @@ jobs:
           sed -i "s|PASS|$PASS|g" application.yml
           sed -i "s|KAFKA_SERVER|$KAFKA_SERVER|g" application.yml
 
+  #Please switch to using google-github-actions/auth which supports both Workload Identity Federation
+  #and Service Account Key JSON authentication.
       - name: install gcloud cli
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
           service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          install_components: 'gke-gcloud-auth-plugin'
           export_default_credentials: true
+
       - name: build and push the docker image
         env:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/prod-393309/translator/anki:version1 .
-          docker push us-central1-docker.pkg.dev/prod-393309/translator/anki:version1
+          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:version1 .
+          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/translator/anki:version1
+
+      - name: deploy to gke
+        env:
+          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        run: |
+          gcloud container clusters get-credentials translator-cluster --region us-central1
+          sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" k8s-resources.yaml
+          kubectl apply -f k8s-resources.yaml
+          kubectl rollout restart deployment/translator-app
